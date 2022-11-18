@@ -4,7 +4,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
 
     defaultConfig {
         minSdkVersion 15
@@ -14,6 +13,10 @@ android {
         main {
             java.srcDirs += ['src/main/apacheCommonsLang']
         }
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
     // Only build the release variant
@@ -78,7 +81,7 @@ task generateDocs(type: Javadoc, dependsOn: 'compileReleaseSources') {
         // This ensures that Javadoc can be inherited properly, but it
         // takes longer and throws a lot of errors (which we ignore here).
         def sdkSources = file("$android.sdkDirectory/sources/$android.compileSdkVersion")
-        assert sdkSources.exists()
+        //assert sdkSources.exists()
         addFileOption 'sourcepath', sdkSources
 
         failOnError = false
@@ -164,6 +167,10 @@ task fixIml {
         printer.preserveWhitespace = true
         printer.print(parse)
     }
+}
+
+dependencies {
+    implementation project(path: ':hiddenapistubs')
 }
 
 tasks.preBuild.dependsOn fixIml

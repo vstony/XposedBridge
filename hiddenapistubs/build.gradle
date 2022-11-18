@@ -3,6 +3,8 @@ import com.android.builder.core.BuilderConstants
 apply plugin: 'com.android.library'
 
 android {
+    compileSdkVersion 23
+
     // Only build the release variant
     variantFilter { variant ->
         if (variant.buildType.name != BuilderConstants.RELEASE) {
